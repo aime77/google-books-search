@@ -8,8 +8,6 @@ render(){
         <div></div>
     )
 }
-
-
 }
 
 export default Page404;
