@@ -3,19 +3,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const BookSchema = new Schema({
-   article: [
+   authors: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Authors",
+      type: String,
+      
     }
   ],
   description: {
     type: String,
     trim: true,
   },
-  image: {
+  imageURL: {
     type: String,
-    match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   },
     link: {
     type: String,

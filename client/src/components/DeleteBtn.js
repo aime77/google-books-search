@@ -3,9 +3,9 @@ import React from "react";
 
 // The ...props means, spread all of the passed props onto this element
 // That way we don't have to define them all individually
-function DeleteBtn({onDeleteBtn}) {
+function DeleteBtn(props) {
   return (
-    <span onClick={() => onDeleteBtn()} className="delete-btn"  role="button" tabIndex="0">
+    <span className="delete-btn" {...props} role="button" tabIndex="0">
       ✗
     </span>
   );
