@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavTabs from "./components/NavTabs";
 import SearchBooks from "./pages/SearchBooks";
 import SavedBooks from "./pages/SavedBooks";
@@ -10,9 +10,11 @@ function App() {
     <Router>
       <div>
         <NavTabs />
-        <Route exact path="/" component={SearchBooks} />
-        <Route exact path="/saved-books" component={SavedBooks} />
-        <Route path="/not-found" component={Page404} />
+        <Switch>
+          <Route exact path="/" component={SearchBooks} />
+          <Route exact path="/saved-books" component={SavedBooks} />
+          <Route component={Page404} />
+        </Switch>
       </div>
     </Router>
   );

@@ -5,8 +5,10 @@ import Buttons from "../components/Buttons";
 import { Container, Row, Col } from "../components/Grid";
 import BookList from "../components/BookList";
 import BookItem from "../components/BookItem";
+import SearchContainer from "../components/SearchContainer";
 import Jumbotron from "../components/Jumbotron";
 import API from "../utils/API";
+import "../components/style.css";
 
 class SavedBooks extends Component {
   state = { books: [], title: "", authors: "", description: "" };
@@ -40,42 +42,64 @@ class SavedBooks extends Component {
 
   render() {
     return (
-      <div>
-        <Container>
-          <Jumbotron>
-            <Header />
-          </Jumbotron>
-          <BookList books={this.state.books} />
-        
+      <Container>
+        <Jumbotron>
+          <Header />
+        </Jumbotron>
+        <BookList books={this.state.books} />
+        {this.state.books.length > 0 ? (
+          <SearchContainer>
+            <h4> Saved Books</h4>
+            <BookList>
+              {this.state.books.map(book => (
+                <BookItem>
+                  <Row>
+                    <h4 className="header col-10">{book.title}</h4>
+                    <Col size="md-2" className="float-right">
+                      <DeleteBtn onClick={() => this.deleteBook(book._id)}>
+                        <i class="trash alternate icon large" />
+                      </DeleteBtn>
+                      {book.webReaderLink ? (
+                        <Buttons>
+                          <a href={book.webReaderLink} target="_blank">
+                            <i class="eye icon" />
+                          </a>
+                        </Buttons>
+                      ) : (
+                        <h5>No web link</h5>
+                      )}
+                    </Col>
+                  </Row>
 
-        <BookList>
-          {this.state.books.map(book => (
-            <BookItem>
-              <div className="book-item item">
-                <div className="header">{book.title}</div>
-                <div className="col-12">
-                  <img
-                    className="ui image"
-                    alt={book.title}
-                    src={book.imageURL}
-                  />
-                  <div className="content">
-                    <div className="body">{book.description}</div>
+                  <div class="ui two column stackable grid">
+                    <div class="column col-3">
+                      <div className="book-item item" key={book.id}>
+                        {book.imageURL ? (
+                          <img
+                            className="ui image"
+                            alt={book.title}
+                            src={book.imageURL}
+                          />
+                        ) : (
+                          <h5>No image available</h5>
+                        )}
+                      </div>
+                    </div>
+
+                    <div class="column col-9">
+                      <div className="content">
+                        <div className="body">{book.description}</div>
+                      </div>
+                    </div>
                   </div>
-                  <DeleteBtn onClick={() => this.deleteBook(book._id)}>
-                    <i class="trash alternate icon" />
-                  </DeleteBtn>
-                  <Buttons onSaveButton={this.onSaveButton}>
-                    <i class="eye icon" />
-                  </Buttons>
-                </div>
-              </div>
-            </BookItem>
-          ))}
-        </BookList>
-
-        </Container>
-      </div>
+                </BookItem>
+              ))}
+            </BookList>
+          </SearchContainer>
+        ) : (
+          <h5>No saved books!</h5>
+        )}
+      </Container>
     );
   }
 }

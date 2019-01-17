@@ -1,6 +1,5 @@
 //const Book = require("../models/Book");
-const db=require("../models")
-const Author = require("../models/Author");
+const db = require("../models");
 
 // Defining methods for the booksController
 module.exports = {
@@ -16,8 +15,14 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: async function(req, res) {
-    console.log("test", req.body);
-    const bookCreate = await db.Book.create({title:req.body.title, description:req.body.description, authors:req.body.authors, imageURL:req.body.imageURL});
+    const bookCreate = await db.Book.create({
+      title: req.body.title,
+      description: req.body.description,
+      authors: req.body.authors,
+      imageURL: req.body.imageURL,
+      webReaderLink: req.body.webReaderLink,
+      id: req.body.id
+    });
     console.log(bookCreate);
   },
   update: function(req, res) {
