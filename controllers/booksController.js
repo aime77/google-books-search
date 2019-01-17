@@ -17,7 +17,7 @@ module.exports = {
   },
   create: async function(req, res) {
     console.log("test", req.body);
-    const bookCreate = await db.Book.create({title:req.body.title, description:req.body.description, authors:req.body.authors});
+    const bookCreate = await db.Book.create({title:req.body.title, description:req.body.description, authors:req.body.authors, imageURL:req.body.imageURL});
     console.log(bookCreate);
   },
   update: function(req, res) {
