@@ -60,8 +60,8 @@ class SavedBooks extends Component {
                     </Col>
                   </Row>
 
-                  <div class="ui two column stackable grid">
-                    <div class="column col-3">
+                  <div className="ui two column stackable grid">
+                    <div className="column col-3">
                       <div className="book-item item" key={book.id}>
                         {book.imageURL ? (
                           <img
@@ -75,7 +75,7 @@ class SavedBooks extends Component {
                       </div>
                     </div>
 
-                    <div class="column col-9">
+                    <div className="column col-9">
                       <div className="content">
                         <div className="body">{book.description}</div>
                       </div>

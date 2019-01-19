@@ -36,7 +36,6 @@ class SearchBooks extends Component {
   loadBooks = () => {
     API.getBooks().then(res => {
       this.setState({ bookSaved: res.data });
-      console.log(this.state.bookSaved);
     });
   };
 
@@ -48,6 +47,10 @@ class SearchBooks extends Component {
     }
   };
 
+  findTitleBook = this.state.bookSaved.find(
+    book => book.title === book.volumeInfo.title
+  );
+
   onSaveButton = (id, title, description, authors, imageURL, webReaderLink) => {
     API.saveBook({
       id: id,
@@ -57,7 +60,7 @@ class SearchBooks extends Component {
       imageURL: imageURL,
       webReaderLink: webReaderLink
     })
-      .then(this.setState())
+      .then(this.loadBooks())
       .catch(error => console.log(error.message));
   };
 
@@ -87,8 +90,15 @@ class SearchBooks extends Component {
                         </a>
                       </Buttons>
 
-                      {this.state.bookSaved.title !== book.volumeInfo.title ? (
+                      {this.state.bookSaved.find(
+                        search => search.title === book.volumeInfo.title
+                      ) ? (
+                        <h4>Saved book</h4>
+                      ) : (
                         <Buttons
+                          disabled={this.state.bookSaved.find(
+                            search => search.title === book.volumeInfo.title
+                          )}
                           onClick={() =>
                             this.onSaveButton(
                               book.id,
@@ -100,10 +110,14 @@ class SearchBooks extends Component {
                             )
                           }
                         >
-                          <i class="save icon" />
+                          {this.state.bookSaved.find(
+                            search => search.title === book.volumeInfo.title
+                          ) ? (
+                            <h5>No image available</h5>
+                          ) : (
+                            <i class="save icon" />
+                          )}
                         </Buttons>
-                      ) : (
-                        <h4>Saved book</h4>
                       )}
                     </Col>
                   </Row>
