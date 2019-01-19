@@ -19,10 +19,7 @@ class SavedBooks extends Component {
 
   loadBooks = () => {
     API.getBooks().then(res => {
-      console.log(res);
       this.setState({ books: res.data });
-
-      console.log(this.state.books);
     });
   };
 
@@ -30,13 +27,6 @@ class SavedBooks extends Component {
     API.deleteBook(id)
       .then(res => this.loadBooks())
       .catch(err => console.log(err));
-  };
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
   };
 
   render() {

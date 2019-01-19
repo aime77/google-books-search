@@ -14,7 +14,7 @@ const KEY = "AIzaSyA0dseKEfwC1OM1MdBqClFlWfSTRAgLTVk";
 class SearchBooks extends Component {
   constructor(props) {
     super(props);
-    this.text_truncate = this.text_truncate;
+    this.text_truncate = this.text_truncate.bind(this);
   }
   state = { books: [], title: "", author: "", sypnosis: "", bookSaved: [] };
 
@@ -23,10 +23,10 @@ class SearchBooks extends Component {
     const response = await googleBooks.get("/volumes", {
       params: {
         q: query,
-        key: KEY
+        key: KEY 
       }
     });
-    this.setState({ books: response.data.items });
+    this.setState({ books: response.data.items, term: "" });
   };
 
   componentDidMount() {
@@ -40,7 +40,7 @@ class SearchBooks extends Component {
     });
   };
 
-  text_truncate = function(str, length, ending) {
+  text_truncate = (str, length, ending) => {
     if (str.length > length) {
       return str.substring(0, length - ending.length) + ending;
     } else {
@@ -87,25 +87,24 @@ class SearchBooks extends Component {
                         </a>
                       </Buttons>
 
-                        {this.state.bookSaved.title !== book.volumeInfo.title ? (
-                          <Buttons
-                            onClick={() =>
-                              this.onSaveButton(
-                                book.id,
-                                book.volumeInfo.title,
-                                book.volumeInfo.description,
-                                book.volumeInfo.authors,
-                                book.volumeInfo.imageLinks.smallThumbnail,
-                                book.accessInfo.webReaderLink
-                              )
-                            }
-                          >
-                            <i class="save icon" />
-                          </Buttons>
-                        ) : (
-                          <h4>Saved book</h4>
-                        )}
-                     
+                      {this.state.bookSaved.title !== book.volumeInfo.title ? (
+                        <Buttons
+                          onClick={() =>
+                            this.onSaveButton(
+                              book.id,
+                              book.volumeInfo.title,
+                              book.volumeInfo.description,
+                              book.volumeInfo.authors,
+                              book.volumeInfo.imageLinks.smallThumbnail,
+                              book.accessInfo.webReaderLink
+                            )
+                          }
+                        >
+                          <i class="save icon" />
+                        </Buttons>
+                      ) : (
+                        <h4>Saved book</h4>
+                      )}
                     </Col>
                   </Row>
                   <div class="ui two column stackable grid">
