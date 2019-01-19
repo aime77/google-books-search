@@ -23,7 +23,7 @@ class SearchBooks extends Component {
     const response = await googleBooks.get("/volumes", {
       params: {
         q: query,
-        key: KEY 
+        key: KEY
       }
     });
     this.setState({ books: response.data.items, term: "" });
@@ -110,7 +110,7 @@ class SearchBooks extends Component {
                   <div class="ui two column stackable grid">
                     <div class="column col-3">
                       <div className="book-item item" key={book.id}>
-                        {book.volumeInfo.imageLinks.smallThumbnail ? (
+                        {book.volumeInfo.imageLinks ? (
                           <img
                             className="ui image"
                             alt={book.volumeInfo.title}
